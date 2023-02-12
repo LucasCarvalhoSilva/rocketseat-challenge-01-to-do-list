@@ -1,0 +1,44 @@
+.container {
+    width: 46rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: -1.6875rem;
+}
+
+.newTaskInput {
+    background-color: var(--gray-500);
+    border: 1px solid var(--gray-700);
+    border-radius: 8px;
+    height: 3.25rem;
+    flex: 1;
+    padding: 1rem;
+}
+
+
+.newTaskInput:focus {
+    outline: transparent;
+    border: 1px solid var(--purpleDark);
+    color: var(--gray-100);
+}
+
+.submitButton {
+    background-color: var(--blueDark);
+    color: var(--gray-100);
+    font-size: 0.875rem;
+    height: 3.25rem;
+    width: 5.625rem;
+    border: none;
+    border-radius: 8px;
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+}
+
+.submitButton:hover {
+    background-color: var(--blue);
+    cursor: pointer;
+}
