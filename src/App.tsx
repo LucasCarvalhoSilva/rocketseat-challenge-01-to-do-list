@@ -3,7 +3,7 @@ import styles from './App.module.css'
 
 import { Header } from './components/Header'
 import { NewTask } from './components/NewTask'
-//import { TaskList } from './components/TaskList'
+import { TaskList } from './components/TaskList'
 
 export function App() {
 
@@ -11,6 +11,7 @@ export function App() {
     <div className={styles.bodyContent}>
       <Header />
       <NewTask />
+      <TaskList />
     </div>
   );
 }
