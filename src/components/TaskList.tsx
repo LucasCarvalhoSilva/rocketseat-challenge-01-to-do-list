@@ -1,23 +1,22 @@
 
 import {ClipboardText} from 'phosphor-react'
 import { useState } from 'react';
+import { NewTask } from './NewTask';
 import { Task } from './Task';
 
 import styles from './TaskList.module.css'
 
-interface Task{
-    isCompleted: boolean;
-    description: string;
-}
+export function TaskList() {
+    const [tasks, setTasks] = useState([{
+        description: "Primeira tarefa",
+        isCompleted: true
+    }])
 
-interface tasksProsp {
-    tasks:Task[]
-}
-
-export function TaskList({tasks}:tasksProsp) {
     const [quantityOfTask,setQuantityOfTask] = useState(tasks.length) 
     let countOfQuantityOfCompletedTasks = 0
     
+    
+
     tasks.forEach(task => {
         if(task.isCompleted) {
             countOfQuantityOfCompletedTasks++
@@ -28,6 +27,7 @@ export function TaskList({tasks}:tasksProsp) {
     if(tasks !== null) {
         return(
             <div className={styles.container}>
+                <NewTask />
                 <header className={styles.header}>
                     <div className={styles.createdTaskInfos}>
                         <p>Tarefas Criadas</p>
@@ -35,10 +35,18 @@ export function TaskList({tasks}:tasksProsp) {
                     </div>
                     <div className={styles.completedTaskInfos}>
                         <p>Concluídas</p>
-                        <span className={styles.quantityOfCompletedTasks}>{0} de {quantityOfTask}</span>
+                        <span className={styles.quantityOfCompletedTasks}>{quantityOfCompletedTasks} de {quantityOfTask}</span>
                     </div>
                 </header>
-                <Task />
+                {tasks.map(task => {
+                    return (
+                        <Task
+                             key={task.description}
+                            description={task.description}
+                            isCompleted={task.isCompleted}
+                        />
+                    );
+                })}
             </div>
         );
     } else {
