@@ -24,10 +24,14 @@ export function TaskList() {
     })
     const [quantityOfCompletedTasks, setQuantityOfCompletedTask] = useState(countOfQuantityOfCompletedTasks)
 
+    function onCreatedNewTask(newTask: string) {
+        setTasks([...tasks, {description: newTask, isCompleted:false}])
+    }
+
     if(tasks !== null) {
         return(
             <div className={styles.container}>
-                <NewTask />
+                <NewTask onCreateNewTask={onCreatedNewTask}/>
                 <header className={styles.header}>
                     <div className={styles.createdTaskInfos}>
                         <p>Tarefas Criadas</p>
@@ -39,12 +43,14 @@ export function TaskList() {
                     </div>
                 </header>
                 {tasks.map(task => {
+                    console.log(task)
                     return (
-                        <Task
-                             key={task.description}
-                            description={task.description}
-                            isCompleted={task.isCompleted}
-                        />
+                        <div key={task.description} className={styles.task}>
+                            <Task
+                                description={task.description}
+                                isCompleted={task.isCompleted}
+                            />
+                        </div>
                     );
                 })}
             </div>
