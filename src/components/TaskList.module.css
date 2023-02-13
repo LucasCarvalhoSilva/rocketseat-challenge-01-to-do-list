@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 1.5rem;
 }
 
 .header > div {
@@ -31,7 +32,19 @@
     color: var(--purple);
 }
 
-.header > div > span {
+.quantityOfCompletedTasks {
+    width: 3.25rem;
+    height: 1.1875rem;
+    margin-left: .5rem;
+    background-color: var(--gray-400);
+    color: var(--gray-200);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    padding: 0.125rem 0.5rem;
+}
+
+.quantityOfTask {
     width: 1.5625rem;
     height: 1.1875rem;
     margin-left: .5rem;
