@@ -15,8 +15,6 @@ export function NewTask({onCreateNewTask}:NewTaskProps) {
         event.preventDefault()
         setNewTask('')
         onCreateNewTask(newTask)
-        
-        
     }
 
     function handleNewTaskChanged(event:ChangeEvent<HTMLInputElement>) {

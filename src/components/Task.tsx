@@ -6,9 +6,16 @@ import styles from './Task.module.css'
 interface Task {
     description: string;
     isCompleted: boolean;
+    onDeleteTask: (taskToDelete:string) => void;
 }
 
-export function Task ({description, isCompleted}: Task) {
+export function Task ({description, isCompleted, onDeleteTask}: Task) {
+    
+    function handleDeleteTask() {
+        onDeleteTask(description)
+    }
+    
+    
     return (
         <div className={styles.task}>
             <form className={styles.chekRounded}>
@@ -16,7 +23,7 @@ export function Task ({description, isCompleted}: Task) {
                 <label htmlFor='1'></label>
             </form>
             <p>{description}</p>
-            <div className={styles.trash}><Trash size={14}/></div>
+            <button title='deletar tarefa' onClick={handleDeleteTask} className={styles.trash}><Trash size={14}/></button>
         </div>
     )
 }

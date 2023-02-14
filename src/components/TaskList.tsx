@@ -1,6 +1,6 @@
 
 import {ClipboardText} from 'phosphor-react'
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { NewTask } from './NewTask';
 import { Task } from './Task';
 
@@ -15,7 +15,7 @@ export function TaskList() {
     const [quantityOfTask,setQuantityOfTask] = useState(tasks.length) 
     let countOfQuantityOfCompletedTasks = 0
     
-    
+    console.log(tasks.length)
 
     tasks.forEach(task => {
         if(task.isCompleted) {
@@ -28,7 +28,16 @@ export function TaskList() {
         setTasks([...tasks, {description: newTask, isCompleted:false}])
     }
 
-    if(tasks !== null) {
+    function onDeleteTask(tasktToDelete: string) {
+        const tasksWithoutDeletedOne = tasks.filter(task =>{
+            if(task.description !== tasktToDelete) {
+                return task
+            }
+        })
+        setTasks(tasksWithoutDeletedOne)
+    }
+
+    if(tasks.length > 0) {
         return(
             <div className={styles.container}>
                 <NewTask onCreateNewTask={onCreatedNewTask}/>
@@ -49,6 +58,7 @@ export function TaskList() {
                             <Task
                                 description={task.description}
                                 isCompleted={task.isCompleted}
+                                onDeleteTask={onDeleteTask}
                             />
                         </div>
                     );
