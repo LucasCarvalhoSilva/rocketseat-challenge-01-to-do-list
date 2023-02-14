@@ -8,24 +8,18 @@ import styles from './TaskList.module.css'
 
 export function TaskList() {
     const [tasks, setTasks] = useState([{
+        id: 1,
         description: "Primeira tarefa",
-        isCompleted: true
+        isCompleted: false
     }])
 
     const [quantityOfTask,setQuantityOfTask] = useState(tasks.length) 
-    let countOfQuantityOfCompletedTasks = 0
-    
-    console.log(tasks.length)
 
-    tasks.forEach(task => {
-        if(task.isCompleted) {
-            countOfQuantityOfCompletedTasks++
-        }
-    })
-    const [quantityOfCompletedTasks, setQuantityOfCompletedTask] = useState(countOfQuantityOfCompletedTasks)
+    const [quantityOfCompletedTasks, setQuantityOfCompletedTask] = useState(0)
 
     function onCreatedNewTask(newTask: string) {
-        setTasks([...tasks, {description: newTask, isCompleted:false}])
+        setTasks([...tasks, {id:tasks.length + 1, description: newTask, isCompleted:false}])
+        setQuantityOfTask(tasks.length + 1)
     }
 
     function onDeleteTask(tasktToDelete: string) {
@@ -35,6 +29,35 @@ export function TaskList() {
             }
         })
         setTasks(tasksWithoutDeletedOne)
+    }
+
+    function onChangeCompletedStatus(id:number, descriptionOfTaskToChage:string, isCompleted:boolean) {
+
+        const taskUpdated = tasks.map(task => {
+            if (task.id === id) {
+                return ({id:task.id, description: task.description, isCompleted: isCompleted})
+            } else {
+                return task
+            }
+        })
+        setTasks(taskUpdated)
+        if(isCompleted) {
+            changeQuantityOfCompletedTasks(1)
+        } else {
+            changeQuantityOfCompletedTasks(-1)
+        }
+    }
+
+    function changeQuantityOfCompletedTasks(infoIsToAcressOrDecres: number) {
+        const sum = tasks.reduce((qtdOfCompletedTask:number,currentTask) => {
+            if(currentTask.isCompleted) {
+                return qtdOfCompletedTask + 1
+            } else {
+                return qtdOfCompletedTask
+            }
+        },0 )
+
+        setQuantityOfCompletedTask(sum + infoIsToAcressOrDecres)
     }
 
     if(tasks.length > 0) {
@@ -56,9 +79,11 @@ export function TaskList() {
                     return (
                         <div key={task.description} className={styles.task}>
                             <Task
+                                id={task.id}
                                 description={task.description}
                                 isCompleted={task.isCompleted}
                                 onDeleteTask={onDeleteTask}
+                                onChangeStatusTask={onChangeCompletedStatus}
                             />
                         </div>
                     );
@@ -68,6 +93,7 @@ export function TaskList() {
     } else {
         return (
             <div className={styles.container}>
+                <NewTask onCreateNewTask={onCreatedNewTask}/>   
                 <header className={styles.header}>
                     <div className={styles.createdTaskInfos}>
                         <p>Tarefas Criadas</p>
